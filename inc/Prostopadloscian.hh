@@ -4,11 +4,14 @@
 #include "Obiekt3D.hh"
 
 class Prostopadloscian : public Obiekt3D{
-    private:
+    protected:
         Wektor3D wymiary;
 
     public:
-        void rysuj() override;
+        int rysuj(std::shared_ptr<drawNS::Draw3DAPI> scena) const override;
+        Prostopadloscian() : wymiary{1,1,1} {}
+        ~Prostopadloscian(){}
+
 
 };
 

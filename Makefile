@@ -6,17 +6,23 @@ CPPFLAGS= -c -g -Iinc -Wall -pedantic
 __start__: dron
 	./dron
 
-dron: obj/main.o obj/Obiekt3D.o obj/Prostopadloscian.o obj/Macierz.o obj/Wektor.o
-	g++ -Wall -pedantic -o dron obj/main.o obj/Obiekt3D.o obj/Prostopadloscian.o obj/Macierz.o obj/Wektor.o
+dron: obj/main.o obj/Obiekt3D.o obj/Prostopadloscian.o obj/Macierz.o obj/Wektor.o obj/Dron.o obj/Interfejs.o obj/Dr3D_gnuplot_api.o
+	g++ -Wall -pedantic -o dron obj/main.o obj/Obiekt3D.o obj/Prostopadloscian.o obj/Macierz.o obj/Wektor.o obj/Dron.o obj/Interfejs.o obj/Dr3D_gnuplot_api.o -lpthread
 
-obj/main.o: src/main.cpp inc/Prostopadloscian.hh inc/Obiekt3D.hh inc/Macierz.hh inc/Wektor.hh
+obj/main.o: src/main.cpp inc/Prostopadloscian.hh inc/Obiekt3D.hh inc/Macierz.hh inc/Wektor.hh inc/Dron.hh inc/Interfejs.hh
 	g++ ${CPPFLAGS} -o obj/main.o src/main.cpp
 
-obj/Obiekt3D.o: src/Obiekt3D.cpp inc/Obiekt3D.hh inc/Macierz.hh inc/Wektor.hh	
-	g++ ${CPPFLAGS} -o obj/Obiekt3D.o src/Obiekt3D.cpp
+obj/Dron.o: src/Dron.cpp inc/Dron.hh inc/Prostopadloscian.hh inc/Interfejs.hh inc/Obiekt3D.hh
+	g++ ${CPPFLAGS} -o obj/Dron.o src/Dron.cpp
+
+obj/Interfejs.o: src/Interfejs.cpp inc/Interfejs.hh
+	g++ ${CPPFLAGS} -o obj/Interfejs.o src/Interfejs.cpp
 
 obj/Prostopadloscian.o: src/Prostopadloscian.cpp inc/Prostopadloscian.hh inc/Obiekt3D.hh inc/Macierz.hh inc/Wektor.hh
 	g++ ${CPPFLAGS} -o obj/Prostopadloscian.o src/Prostopadloscian.cpp
+
+obj/Obiekt3D.o: src/Obiekt3D.cpp inc/Obiekt3D.hh inc/Macierz.hh inc/Wektor.hh inc/Dr3D_gnuplot_api.hh
+	g++ ${CPPFLAGS} -o obj/Obiekt3D.o src/Obiekt3D.cpp
 
 obj/Macierz.o: src/Macierz.cpp inc/Macierz.hh inc/Wektor.hh
 	g++ ${CPPFLAGS} -o obj/Macierz.o src/Macierz.cpp
@@ -24,6 +30,11 @@ obj/Macierz.o: src/Macierz.cpp inc/Macierz.hh inc/Wektor.hh
 obj/Wektor.o: src/Wektor.cpp inc/Wektor.hh
 	g++ ${CPPFLAGS} -o obj/Wektor.o src/Wektor.cpp
 
+obj/Dr3D_gnuplot_api.o: src/Dr3D_gnuplot_api.cpp inc/Dr3D_gnuplot_api.hh
+	g++ ${CPPFLAGS} -o obj/Dr3D_gnuplot_api.o src/Dr3D_gnuplot_api.cpp
+
+obj/Dr3D_gnuplot_api.hh: inc/Draw3D_api_interface.hh
+	touch inc/Dr3D_gnuplot_api.hh
 
 clean:
 	rm -f obj/*.o dron

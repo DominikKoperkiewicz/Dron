@@ -9,7 +9,7 @@ class Wektor {
 
   public:
       Wektor() { for(int i = 0; i < ROZMIAR; i++) this->tab[i] = 0; }
-      Wektor(TYP x, TYP y, TYP z) : tab({x,y,z}) {}
+      Wektor(TYP x, TYP y, TYP z) : tab{x,y,z} {}
       Wektor(TYP tablica[]);
 
       Wektor<TYP,ROZMIAR> & operator += (const Wektor<TYP,ROZMIAR> & W2); //W1 += W2  , W1 += W3 += W4
