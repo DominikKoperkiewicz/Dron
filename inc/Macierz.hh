@@ -8,6 +8,7 @@
 
 template <class TYP, int ROZMIAR>
 class Macierz {
+  protected:
     Wektor<TYP, ROZMIAR> tab[ROZMIAR];
 
   public:
@@ -52,7 +53,5 @@ std::ostream& operator << (std::ostream &Strm, const Macierz<TYP, ROZMIAR> &Mac)
     }
     return Strm;
 }
-
-typedef Macierz<double, 3> MacierzOb;
 
 #endif

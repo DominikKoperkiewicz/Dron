@@ -8,7 +8,7 @@ class Prostopadloscian : public Obiekt3D{
         Wektor3D wymiary;
 
     public:
-        int rysuj(std::shared_ptr<drawNS::Draw3DAPI> scena) const override;
+        int rysuj() const override;
         Prostopadloscian() : wymiary{1,1,1} {}
         ~Prostopadloscian(){}
 

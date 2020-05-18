@@ -1,6 +1,6 @@
 #include "Prostopadloscian.hh"
 
-int Prostopadloscian::rysuj(std::shared_ptr<drawNS::Draw3DAPI> scena) const
+int Prostopadloscian::rysuj() const
 {
     Wektor3D poz = pozycja;
     Wektor3D W = wymiary/2;
@@ -34,20 +34,7 @@ int Prostopadloscian::rysuj(std::shared_ptr<drawNS::Draw3DAPI> scena) const
     drawNS::Point3D(tab[7][0], tab[7][1], tab[7][2] )
     }};
 
-/*
-    const std::vector<std::vector<Point3D> > points_map = {{
-    drawNS::Point3D(poz[0]-W[0],poz[1]+W[1],poz[2]+W[2]),
-    drawNS::Point3D(poz[0]-W[0],poz[1]-W[1],poz[2]+W[2]),
-    drawNS::Point3D(poz[0]+W[0],poz[1]-W[1],poz[2]+W[2]),
-    drawNS::Point3D(poz[0]+W[0],poz[1]+W[1],poz[2]+W[2])
-    },{
-    drawNS::Point3D(poz[0]-W[0],poz[1]+W[1],poz[2]-W[2]),
-    drawNS::Point3D(poz[0]-W[0],poz[1]-W[1],poz[2]-W[2]),
-    drawNS::Point3D(poz[0]+W[0],poz[1]-W[1],poz[2]-W[2]),
-    drawNS::Point3D(poz[0]+W[0],poz[1]+W[1],poz[2]-W[2])
-    }};
-*/
-  int id = scena->draw_polyhedron(points_map,"blue");
+  int id = this->scena->draw_polyhedron(points_map,"blue");
 
   return id;
 }

@@ -2,7 +2,7 @@
 #define OBIEKT3D_HH
 
 #include "Wektor.hh"
-#include "Macierz.hh"
+#include "MacierzOb.hh"
 
 #include <iostream>
 #include "Dr3D_gnuplot_api.hh"
@@ -18,14 +18,14 @@ class Obiekt3D{
     protected:
         Wektor3D pozycja;
         MacierzOb orientacjaZ;
+        std::shared_ptr<drawNS::Draw3DAPI> scena;
 
     public:
         Obiekt3D() {}
         ~Obiekt3D() {}
-        virtual int rysuj(std::shared_ptr<drawNS::Draw3DAPI> scena) const = 0;
+        virtual int rysuj() const = 0;
         void setPozycja(Wektor3D W) { this->pozycja = W; }
-        void setOrientacjaZ(MacierzOb M) { this->orientacjaZ = M; }
-        void setOrientacjaZStopnie(double st);
+        void setOrientacjaZ(double k) { this->orientacjaZ.setObrot(k,'z'); }
 };
 
 #endif
