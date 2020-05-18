@@ -43,6 +43,16 @@ void Dron::update()
 {
     Wektor3D W;
     W = (this->pozycja - this->cel);
-    W = ( W / W.dlugosc() ) * predkosc;
-    this->pozycja += W;
+
+    if( W.dlugosc() < predkosc )
+    {
+        this->pozycja = this->cel;
+        this->predkosc = 0;
+    }
+    else
+    {
+        W = ( W / W.dlugosc() ) * predkosc;
+        this->przesun(W);
+    }
+        //this->pozycja += W;
 }

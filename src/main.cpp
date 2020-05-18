@@ -31,34 +31,34 @@ const double FPS = 1000 / 22;
 int main()
 {
     std::shared_ptr<drawNS::Draw3DAPI> scena(new APIGnuPlot3D(-5,5,-5,5,-5,5,1000));
-    scena->change_ref_time_ms(0);
+    scena->change_ref_time_ms(-1);
 
 
     int a;
     Dno Dn(scena);
     Tafla taf(scena);
+    Dron D(scena);
 
     Dn.rysuj();
     taf.rysuj();
-    //a = P.rysuj();
-    wait4key();
-        //scena->erase_shape(a);
-
-    /*
-    Dron D(scena);
     a = D.rysuj();
+    scena->redraw();
+        usleep(2000);
+
+    wait4key();
     D.setPredkosc(0.01);
     D.plyn(2,30);
 
     wait4key();
-    for(int i = 0; i < 200; i++)
+    for(int i = 0; i < 400; i++)
     {
         scena->erase_shape(a);
         D.update();
         a = D.rysuj();
+        scena->redraw();
         usleep(FPS);
     }
     wait4key();
-*/
+
     return 0;
 }
