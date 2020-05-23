@@ -8,7 +8,7 @@ class Prostopadloscian : public Obiekt3D{
         Wektor3D wymiary;
 
     public:
-        int rysuj() const override;
+        void rysuj() override;
         Prostopadloscian() : wymiary{1,1,1} {}
         ~Prostopadloscian(){}
 

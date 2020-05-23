@@ -4,7 +4,7 @@
 
 void Dron::przesun(Wektor3D W)
 {
-    pozycja = pozycja + W;
+    this->pozycja = this->pozycja + W;
 }
 
 
@@ -15,44 +15,59 @@ void Dron::obrocZ(double st)
 
 void Dron::plyn(double odl, double k)
 {
-    Wektor3D W;
-    W[0] = sin(orientacjaZ.getKat());
-    W[1] = cos(orientacjaZ.getKat());
-    W[2] = sin(k);
-    this->cel = W;
-
-    /*
-    Wektor3D W;
-    W[0] = sin(orientacjaZ.getKat());
-    W[1] = cos(orientacjaZ.getKat());
-    W[2] = sin(k);
-
-    int a;
-    Wektor3D poz = this->pozycja + W*odl;
-    W = (W/100)*predkosc;
-    for( ; abs( (this->pozycja-poz).dlugosc()) < 0.0001; )
+    if(k < 90 && k > -90 && odl > 0 && odl < 10)
     {
-        this->przesun(W);
-        a = this->rysuj();
-        scena->erase_shape(a);
+        Wektor3D W;
+        k = k*(M_PI/180);
+        double rad = orientacjaZ.getKat()*M_PI/180;
+        W[0] = sin(rad)*cos(k);
+        W[1] = cos(rad)*cos(k);
+        W[2] = sin(k);
+        this->cel = this->pozycja + W*odl;
 
-    }*/
+
+        this->rysuj();
+        this->rysujWirniki();
+        W = (W/20);
+
+        double tmp = 20*odl;
+        for(int i = 0; i < tmp; i++)
+        {
+            this->przesun(W);
+            this->rysuj();
+            this->rysujWirniki();
+        }
+        this->pozycja = this->cel;
+        this->rysuj();
+        this->rysujWirniki();
+    }
 }
 
-void Dron::update()
+void Dron::rotacjaZ(double k)
 {
-    Wektor3D W;
-    W = (this->pozycja - this->cel);
+    double tmp = abs(k)/k;
+    double wy = orientacjaZ.getKat() + k;
 
-    if( W.dlugosc() < predkosc )
+    this->rysuj();
+    this->rysujWirniki();
+
+    for(int i = 0; i < abs(k)/4 ; i++)
     {
-        this->pozycja = this->cel;
-        this->predkosc = 0;
+        this->obrocZ(tmp*4);
+        this->rysuj();
+        this->rysujWirniki();
     }
-    else
-    {
-        W = ( W / W.dlugosc() ) * predkosc;
-        this->przesun(W);
-    }
-        //this->pozycja += W;
+    this->setOrientacjaZ(wy);
+}
+
+void Dron::rysujWirniki()
+{
+    Wektor3D W = {this->wymiary[0]/2 + 0.2,0,0};
+    W = orientacjaZ*W;
+    LewyWir.setPozycja(this->pozycja - W);
+    PrawyWir.setPozycja(this->pozycja + W);
+    LewyWir.setOrientacjaZ(orientacjaZ.getKat());
+    PrawyWir.setOrientacjaZ(orientacjaZ.getKat());
+    LewyWir.rysuj();
+    PrawyWir.rysuj();
 }

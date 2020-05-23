@@ -1,6 +1,6 @@
 #include "Powierzchnia.hh"
 
-int Powierzchnia::rysuj() const
+void Powierzchnia::rysuj()
 {
     Wektor3D tab[25];
     Wektor3D poz = this->pozycja;
@@ -32,7 +32,5 @@ int Powierzchnia::rysuj() const
     }};
 
 
-  int id = this->scena->draw_surface(points_map, this->kolor);
-
-  return id;
+  this->id = this->scena->draw_surface(points_map, this->kolor);
 }

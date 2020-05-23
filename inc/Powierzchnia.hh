@@ -11,7 +11,7 @@ class Powierzchnia : public Obiekt3D{
     string kolor;
 
     public:
-        int rysuj() const override;
+        void rysuj() override;
         Powierzchnia() {}
         ~Powierzchnia() {}
 };

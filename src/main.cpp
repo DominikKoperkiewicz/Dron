@@ -10,7 +10,6 @@
 
 #include <iostream>
 #include "Dr3D_gnuplot_api.hh"
-#include <unistd.h>
 
 using std::vector;
 using drawNS::Point3D;
@@ -26,12 +25,19 @@ void wait4key() {
   } while(std::cin.get() != '\n');
 }
 
-const double FPS = 1000 / 22;
+void menu() {
+    cout << "-----------------------------\n";
+    cout << "plyn    - p [odleglosc] [kat]\n";
+    cout << "rotacja - r [kat]            \n";
+    cout << "pomoc   - h                  \n";
+    cout << "wyjscie - q                  \n";
+    cout << "-----------------------------\n";
+}
 
 int main()
 {
     std::shared_ptr<drawNS::Draw3DAPI> scena(new APIGnuPlot3D(-5,5,-5,5,-5,5,1000));
-    scena->change_ref_time_ms(-1);
+    scena->change_ref_time_ms(0);
 
 
     int a;
@@ -41,24 +47,32 @@ int main()
 
     Dn.rysuj();
     taf.rysuj();
-    a = D.rysuj();
-    scena->redraw();
-        usleep(2000);
+    D.rysuj();
+    D.rysujWirniki();
 
-    wait4key();
-    D.setPredkosc(0.01);
-    D.plyn(2,30);
+    menu();
 
-    wait4key();
-    for(int i = 0; i < 400; i++)
+    char c;
+    double d1,d2;
+    while(true)
     {
-        scena->erase_shape(a);
-        D.update();
-        a = D.rysuj();
-        scena->redraw();
-        usleep(FPS);
+        cin >> c;
+        switch(c)
+        {
+            case 'p':
+                cin >> d1 >> d2;
+                D.plyn(d1, d2);
+                break;
+            case 'r':
+                cin >> d1;
+                D.rotacjaZ(d1);
+                break;
+            case 'h':
+                menu();
+                break;
+            case 'q':
+                return 0;
+        }
     }
-    wait4key();
-
     return 0;
 }

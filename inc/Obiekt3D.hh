@@ -18,14 +18,16 @@ class Obiekt3D{
     protected:
         Wektor3D pozycja;
         MacierzOb orientacjaZ;
+        int id = -1;
         std::shared_ptr<drawNS::Draw3DAPI> scena;
 
     public:
         Obiekt3D() {}
         ~Obiekt3D() {}
-        virtual int rysuj() const = 0;
+        virtual void rysuj() = 0;
         void setPozycja(Wektor3D W) { this->pozycja = W; }
         void setOrientacjaZ(double k) { this->orientacjaZ.setObrot(k,'z'); }
+        void setScena(std::shared_ptr<drawNS::Draw3DAPI> sc) { this->scena = sc; }
 };
 
 #endif

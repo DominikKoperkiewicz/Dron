@@ -1,6 +1,6 @@
 #include "Prostopadloscian.hh"
 
-int Prostopadloscian::rysuj() const
+void Prostopadloscian::rysuj()
 {
     Wektor3D poz = pozycja;
     Wektor3D W = wymiary/2;
@@ -34,7 +34,7 @@ int Prostopadloscian::rysuj() const
     drawNS::Point3D(tab[7][0], tab[7][1], tab[7][2] )
     }};
 
-  int id = this->scena->draw_polyhedron(points_map,"blue");
-
-  return id;
+    int tmp = this->id;
+    this->id = this->scena->draw_polyhedron(points_map,"blue");
+    this->scena->erase_shape(tmp);
 }

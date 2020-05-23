@@ -8,9 +8,9 @@ class Wirnik : public Obiekt3D{
         Wektor3D wymiary;
 
     public:
-        int rysuj() const override;
-        Wirnik() {}
-        Wirnik(std::shared_ptr<drawNS::Draw3DAPI>& sc) : wymiary{1,1,1} { this->scena = sc; }
+        void rysuj() override;
+        Wirnik() : wymiary{0.6,0.6,0.6} {}
+        Wirnik(std::shared_ptr<drawNS::Draw3DAPI>& sc) : wymiary{0.6,0.6,0.6} { this->scena = sc; }
         ~Wirnik(){}
 
 

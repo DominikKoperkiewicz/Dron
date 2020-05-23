@@ -7,8 +7,8 @@ class MacierzOb : public Macierz<double,3> {
     double kat;
 
 public:
-    MacierzOb() { this->kat = 0; };
-    MacierzOb(double k, char os) : kat(k) {};
+    MacierzOb() : kat(0) {};
+    MacierzOb(double k) : kat(k) {};
     ~MacierzOb() {};
 
     void setObrot(double k, char os);

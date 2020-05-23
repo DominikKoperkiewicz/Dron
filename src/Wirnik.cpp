@@ -1,6 +1,6 @@
 #include "Wirnik.hh"
 
-int Wirnik::rysuj() const
+void Wirnik::rysuj()
 {
     Wektor3D poz = pozycja;
     Wektor3D W = wymiary/2;
@@ -21,7 +21,7 @@ int Wirnik::rysuj() const
     tab[10] = { W[0], 0.0 ,-W[2] };
     tab[11] = { W[0]/2, W[1],-W[2] };
 
-    for(int i = 0; i < 8; i++)
+    for(int i = 0; i < 12; i++)
     {
         tab[i] = orientacjaZ * tab[i];
         tab[i] = tab[i] + poz;
@@ -43,7 +43,7 @@ int Wirnik::rysuj() const
     drawNS::Point3D(tab[11][0], tab[11][1], tab[11][2] )
     }};
 
-  int id = this->scena->draw_polyhedron(points_map,"blue");
-
-  return id;
+    int tmp = this->id;
+    this->id = this->scena->draw_polyhedron(points_map,"blue");
+    this->scena->erase_shape(tmp);
 }
